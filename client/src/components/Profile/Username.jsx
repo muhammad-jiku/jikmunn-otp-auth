@@ -1,9 +1,10 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { usernameValidate } from '../../helpers/validate';
 import { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import styles from '../../styles/username.module.css';
+import { usernameValidate } from '../../helpers/validate';
+import avatar from '../../assets/profile.png';
 
 const Username = () => {
   const formik = useFormik({
@@ -32,6 +33,9 @@ const Username = () => {
           </div>
 
           <form className="py-1" onSubmit={formik.handleSubmit}>
+            <div className="profile flex justify-center py-4">
+              <img src={avatar} className={styles.profile_img} alt="avatar" />
+            </div>
             <div className="textbox flex flex-col items-center gap-6">
               <input
                 {...formik.getFieldProps('username')}
