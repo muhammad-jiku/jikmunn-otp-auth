@@ -22,7 +22,7 @@ const getUser = async (req, res) => {
 
 /** PUT: /api/user/updateuser 
  * @param: {
-  "id" : "<userid>"
+  "header" : "<token>"
 }
 body: {
     firstName: '',
