@@ -7,6 +7,7 @@ import Recovery from './components/Profile/Recovery';
 import Reset from './components/Profile/Reset';
 import Username from './components/Profile/Username';
 import NotFound from './components/Shared/NotFound';
+import { AuthorizeUser, ProtectRoute } from './middlewares/Auth';
 
 function App() {
   return (
@@ -14,8 +15,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Username />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/password" element={<Password />} />
-        <Route path="/profile" element={<Profile />} />
+        <ProtectRoute>
+          <Route path="/password" element={<Password />} />
+        </ProtectRoute>
+        <AuthorizeUser>
+          <Route path="/profile" element={<Profile />} />
+        </AuthorizeUser>
         <Route path="/recovery" element={<Recovery />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="*" element={<NotFound />} />
