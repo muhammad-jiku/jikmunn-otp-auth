@@ -17,11 +17,21 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'Please provide a unique email'],
       unique: true,
     },
-    firstName: { type: String },
-    lastName: { type: String },
-    mobile: { type: Number },
-    address: { type: String },
-    profile: { type: String },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
+    mobile: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    profile: {
+      type: String,
+    },
   },
   {
     timestamps: true,
