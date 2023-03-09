@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const databaseConnect = require('./utils/databaseConnect');
+const authRouter = require('./routes/authRouter');
+const userRouter = require('./routes/userRouter');
 
 //  initialize app
 const app = express();
@@ -32,6 +34,10 @@ app.get('/', (req, res) => {
     message: 'Welcome here!',
   });
 });
+
+// setting-up application routes
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 
 // listening to the port
 app.listen(port, () => {
