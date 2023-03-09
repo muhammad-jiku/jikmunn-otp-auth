@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const databaseConnect = require('./utils/databaseConnect');
 
 //  initialize app
 const app = express();
@@ -21,6 +22,9 @@ app.use(morgan('tiny'));
 app.use(cors(corsConfig));
 app.options('*', cors(corsConfig));
 app.disable('x-powered-by'); // less hackers know about our stack
+
+// database connect
+databaseConnect();
 
 // displaying default response
 app.get('/', (req, res) => {
