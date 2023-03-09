@@ -18,12 +18,12 @@ const authRouter = express.Router({
 /** POST Methods */
 authRouter.route('/register').post(register); // register user
 authRouter.route('/registerMail').post(registerMail); // send the email
-authRouter.route('/authenticate').post((req, res) => res.end()); // authenticate user
+authRouter.route('/authenticate').post(verifyUser, (req, res) => res.end()); // authenticate user
 authRouter.route('/login').post(verifyUser, login); // login in app
 
 /** GET Methods */
 authRouter.route('/generateOTP').get(verifyUser, localVariables, generateOTP); // generate random OTP
-authRouter.route('/verifyOTP').get(verifyOTP); // verify generated OTP
+authRouter.route('/verifyOTP').get(verifyUser, verifyOTP); // verify generated OTP
 authRouter.route('/createResetSession').get(createResetSession); // reset all the variables
 
 /** PUT Methods */
