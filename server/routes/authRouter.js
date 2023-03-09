@@ -8,22 +8,25 @@ const {
 } = require('../controllers/authController');
 
 const express = require('express');
+const { registerMail } = require('../utils/mailer');
+const { localVariables } = require('../middlewares/verifyAuth');
+const { verifyUser } = require('../middlewares/verifyUser');
 const authRouter = express.Router({
   caseSensitive: true,
 });
 
 /** POST Methods */
 authRouter.route('/register').post(register); // register user
-// authRouter.route('/registerMail').post(); // send the email
+authRouter.route('/registerMail').post(registerMail); // send the email
 authRouter.route('/authenticate').post((req, res) => res.end()); // authenticate user
-authRouter.route('/login').post(login); // login in app
+authRouter.route('/login').post(verifyUser, login); // login in app
 
 /** GET Methods */
-authRouter.route('/generateOTP').get(generateOTP); // generate random OTP
+authRouter.route('/generateOTP').get(verifyUser, localVariables, generateOTP); // generate random OTP
 authRouter.route('/verifyOTP').get(verifyOTP); // verify generated OTP
 authRouter.route('/createResetSession').get(createResetSession); // reset all the variables
 
 /** PUT Methods */
-authRouter.route('/resetPassword').put(resetPassword); // use to reset password
+authRouter.route('/resetPassword').put(verifyUser, resetPassword); // use to reset password
 
 module.exports = authRouter;

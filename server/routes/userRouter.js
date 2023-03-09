@@ -1,6 +1,7 @@
 const { getUser, updateUser } = require('../controllers/userController');
 
 const express = require('express');
+const { verifyAuth } = require('../middlewares/verifyAuth');
 const userRouter = express.Router({
   caseSensitive: true,
 });
@@ -9,6 +10,6 @@ const userRouter = express.Router({
 userRouter.route('/:username').get(getUser); // user with username
 
 /** PUT Methods */
-userRouter.route('/updateuser').put(updateUser); // is use to update the user profile
+userRouter.route('/updateuser').put(verifyAuth, updateUser); // is use to update the user profile
 
 module.exports = userRouter;
