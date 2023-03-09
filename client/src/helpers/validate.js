@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import toast from 'react-hot-toast';
 
 /** validate login page username */
