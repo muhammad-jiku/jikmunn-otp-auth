@@ -14,13 +14,23 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Username />} />
-        <Route path="/register" element={<Register />} />
-        <ProtectRoute>
-          <Route path="/password" element={<Password />} />
-        </ProtectRoute>
-        <AuthorizeUser>
-          <Route path="/profile" element={<Profile />} />
-        </AuthorizeUser>
+        <Route path="/register" element={<Register />} />{' '}
+        <Route
+          path="/password"
+          element={
+            <ProtectRoute>
+              <Password />
+            </ProtectRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <AuthorizeUser>
+              <Profile />
+            </AuthorizeUser>
+          }
+        />
         <Route path="/recovery" element={<Recovery />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="*" element={<NotFound />} />
