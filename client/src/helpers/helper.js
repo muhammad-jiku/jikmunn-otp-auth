@@ -7,7 +7,7 @@ axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 /** To get username from Token */
 export async function getUsername() {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
   if (!token) return Promise.reject('Cannot find Token');
   let decode = jwt_decode(token);
   return decode;
@@ -74,7 +74,7 @@ export async function verifyPassword({ username, password }) {
 /** update user profile function */
 export async function updateUser(response) {
   try {
-    const token = await localStorage.getItem('token');
+    const token = await localStorage.getItem('accessToken');
     const data = await axios.put('/api/updateuser', response, {
       headers: { Authorization: `Bearer ${token}` },
     });
