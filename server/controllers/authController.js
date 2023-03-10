@@ -27,7 +27,7 @@ const register = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 12);
 
       const newUser = new User({
-        username,
+        username: username.toLowerCase(),
         password: hashedPassword,
         profile: profile || '',
         email,
@@ -36,9 +36,13 @@ const register = async (req, res) => {
       const savedUser = await newUser.save();
 
       const token = jwt.sign(
-        { email: savedUser.email },
+        {
+          username: savedUser.username,
+        },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '86400s' }
+        {
+          expiresIn: '86400s',
+        }
       );
 
       res.status(200).json({
