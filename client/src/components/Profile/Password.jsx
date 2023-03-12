@@ -35,7 +35,7 @@ const Password = () => {
 
       loginPromise.then((res) => {
         let { accessToken } = res.data;
-        console.log(accessToken);
+        // console.log(accessToken);
         localStorage.setItem('accessToken', accessToken);
         navigate('/profile');
       });

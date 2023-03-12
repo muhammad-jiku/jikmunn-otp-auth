@@ -13,7 +13,7 @@ const verifyAuth = async (req, res, next) => {
     );
 
     req.user = decodedToken;
-    console.log(req.user);
+    // console.log(req.user);
     next();
   } catch (error) {
     // console.log('auth error', error);

@@ -46,14 +46,14 @@ const Recovery = () => {
     });
 
     sentPromise.then((OTP) => {
-      console.log(OTP);
+      // console.log(OTP);
     });
   }
 
   return (
     <div className="container mx-auto">
       <Toaster position="top-center" reverseOrder={false} />
-      {console.log(username)}
+      {/* {console.log(username)} */}
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass}>
           <div className="title flex flex-col items-center">

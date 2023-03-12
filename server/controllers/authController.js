@@ -68,7 +68,7 @@ const login = async (req, res) => {
         password,
         oldUser.password
       );
-      console.log(password, oldUser?.password);
+      // console.log(password, oldUser?.password);
       if (!isPasswordCorrect)
         return res.status(400).json({
           message: 'Something went wrong',
@@ -175,7 +175,7 @@ const resetPassword = async (req, res) => {
       });
 
     const { username, password } = await req.body;
-    console.log(req.body);
+    // console.log(req.body);
     try {
       const oldUser = await User.findOne({
         username: username,
