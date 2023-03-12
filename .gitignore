@@ -11,7 +11,7 @@ server/.env
 # testing
 /coverage
 
-# productions
+# production
 /build
 
 # misc
