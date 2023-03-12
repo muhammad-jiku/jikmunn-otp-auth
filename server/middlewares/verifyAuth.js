@@ -4,18 +4,19 @@ const jwt = require('jsonwebtoken');
 const verifyAuth = async (req, res, next) => {
   try {
     // access authorize header to validate request
-    const token = req.headers.authorization.split(' ')[1];
+    const accessToken = req.headers.authorization.split(' ')[1];
 
     // retrive the user details fo the logged in user
     const decodedToken = await jwt.verify(
-      token,
+      accessToken,
       process.env.ACCESS_TOKEN_SECRET
     );
 
     req.user = decodedToken;
-
+    console.log(req.user);
     next();
   } catch (error) {
+    console.log('auth error', error);
     res.status(401).json({
       message: 'Authentication Failed!',
     });

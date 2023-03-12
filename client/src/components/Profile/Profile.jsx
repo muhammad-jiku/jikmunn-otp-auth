@@ -12,16 +12,17 @@ import { updateUser } from '../../helpers/helper';
 
 const Profile = () => {
   const [file, setFile] = useState();
+
   const [{ isLoading, apiData, serverError }] = useFetch();
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
-      firstName: apiData?.firstName || '',
-      lastName: apiData?.lastName || '',
-      email: apiData?.email || '',
-      mobile: apiData?.mobile || '',
-      address: apiData?.address || '',
+      firstName: apiData?.data[0]?.firstName || '',
+      lastName: apiData?.data[0]?.lastName || '',
+      email: apiData?.data[0]?.email || '',
+      mobile: apiData?.data[0]?.mobile || '',
+      address: apiData?.data[0]?.address || '',
     },
     enableReinitialize: true,
     validate: profileValidation,
@@ -59,6 +60,7 @@ const Profile = () => {
 
   return (
     <div className="container mx-auto">
+      {/* {console.log(apiData?.data[0])} */}
       <Toaster position="top-center" reverseOrder={false}></Toaster>
 
       <div className="flex justify-center items-center h-screen">
@@ -82,7 +84,7 @@ const Profile = () => {
                   alt="avatar"
                 /> */}
                 <img
-                  src={apiData?.profile || file || avatar}
+                  src={apiData?.data[0]?.profile || file || avatar}
                   className={`${styles.profile_img} ${extend.profile_img}`}
                   alt="avatar"
                 />

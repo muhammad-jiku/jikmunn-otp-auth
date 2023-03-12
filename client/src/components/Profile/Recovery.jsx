@@ -21,13 +21,17 @@ const Recovery = () => {
   async function onSubmit(e) {
     e.preventDefault();
     try {
-      let { status } = await verifyOTP({ username, code: OTP });
+      let { status } = await verifyOTP({
+        username,
+        code: OTP,
+      });
       if (status === 201) {
         toast.success('Verify Successfully!');
         return navigate('/reset');
       }
     } catch (error) {
-      return toast.error('Wront OTP! Check email again!');
+      console.log('otp wrong', error);
+      return toast.error('Wrong OTP! Check email again!');
     }
   }
 
@@ -49,7 +53,7 @@ const Recovery = () => {
   return (
     <div className="container mx-auto">
       <Toaster position="top-center" reverseOrder={false}></Toaster>
-
+      {console.log(username)}
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass}>
           <div className="title flex flex-col items-center">

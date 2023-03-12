@@ -5,7 +5,7 @@ import { getUsername } from '../helpers/helper';
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 /** custom hook */
-export default function useFetch(query) {
+const useFetch = (query) => {
   const [getData, setData] = useState({
     isLoading: false,
     apiData: undefined,
@@ -22,15 +22,21 @@ export default function useFetch(query) {
 
         const { data, status } = !query
           ? await axios.get(`/api/user/${username}`)
-          : await axios.get(`/api/${query}`);
+          : await axios.get(`/api${query}`);
 
-        if (status === 201) {
+        if (status === 200 || status === 201) {
           setData((prev) => ({ ...prev, isLoading: false }));
-          setData((prev) => ({ ...prev, apiData: data, status: status }));
+          setData((prev) => ({
+            ...prev,
+            apiData: data,
+            // apiData: data?.data[0],
+            status: status,
+          }));
         }
 
         setData((prev) => ({ ...prev, isLoading: false }));
       } catch (error) {
+        console.log('fetch error', error);
         setData((prev) => ({ ...prev, isLoading: false, serverError: error }));
       }
     };
@@ -38,4 +44,6 @@ export default function useFetch(query) {
   }, [query]);
 
   return [getData, setData];
-}
+};
+
+export default useFetch;

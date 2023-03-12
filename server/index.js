@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const databaseConnect = require('./utils/databaseConnect');
 const authRouter = require('./routes/authRouter');
 const userRouter = require('./routes/userRouter');
@@ -21,6 +22,17 @@ const corsConfig = {
 //  middlewares
 app.use(express.json());
 app.use(morgan('tiny'));
+app.use(
+  bodyParser.json({
+    limit: '50mb',
+  })
+);
+app.use(
+  bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true,
+  })
+);
 app.use(cors(corsConfig));
 app.options('*', cors(corsConfig));
 app.disable('x-powered-by'); // less hackers know about our stack

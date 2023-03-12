@@ -46,6 +46,7 @@ export const registerValidation = async (values) => {
 /** validate profile page */
 export const profileValidation = async (values) => {
   const errors = emailVerify({}, values);
+  console.log(errors);
   return errors;
 };
 
@@ -66,7 +67,7 @@ const passwordVerify = (errors = {}, values) => {
   } else if (!specialChars.test(values.password)) {
     errors.password = toast.error('Password must have special character');
   }
-
+  console.log(errors);
   return errors;
 };
 
@@ -77,7 +78,7 @@ const usernameVerify = (error = {}, values) => {
   } else if (values.username.includes(' ')) {
     error.username = toast.error('Invalid Username...!');
   }
-
+  console.log(error);
   return error;
 };
 
@@ -90,6 +91,6 @@ const emailVerify = (error = {}, values) => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     error.email = toast.error('Invalid email address...!');
   }
-
+  console.log(error);
   return error;
 };

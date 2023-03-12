@@ -11,13 +11,14 @@ import { resetPassword } from '../../helpers/helper';
 const Reset = () => {
   const { username } = useAuthStore((state) => state.auth);
   const navigate = useNavigate();
-  const [{ isLoading, apiData, status, serverError }] =
-    useFetch('createResetSession');
+  const [{ isLoading, apiData, status, serverError }] = useFetch(
+    '/auth/createResetSession'
+  );
 
   const formik = useFormik({
     initialValues: {
-      password: 'admin@123',
-      confirm_pwd: 'admin@123',
+      password: '',
+      confirm_pwd: '',
     },
     validate: resetPasswordValidation,
     validateOnBlur: false,

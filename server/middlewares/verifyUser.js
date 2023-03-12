@@ -13,6 +13,7 @@ const verifyUser = async (req, res, next) => {
       });
     next();
   } catch (error) {
+    console.log('verify user auth', error);
     return res.status(404).send({
       message: 'Authentication Error',
     });

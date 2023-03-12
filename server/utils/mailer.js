@@ -31,10 +31,11 @@ let MailGenerator = new Mailgen({
 }
 */
 const registerMail = async (req, res) => {
-  const { username, userEmail, text, subject } = req.body;
+  const { username, userEmail, text, subject } = await req.body;
+  // console.log(req.body);
 
   // body of the email
-  var email = {
+  let email = {
     body: {
       name: username,
       intro:
@@ -45,7 +46,7 @@ const registerMail = async (req, res) => {
     },
   };
 
-  var emailBody = MailGenerator.generate(email);
+  let emailBody = MailGenerator.generate(email);
 
   let message = {
     from: process.env.AUTHOR_EMAIL,
@@ -58,15 +59,16 @@ const registerMail = async (req, res) => {
   transporter
     .sendMail(message)
     .then(() => {
-      return res
-        .status(200)
-        .send({ msg: 'You should receive an email from us.' });
+      return res.status(200).send({
+        message: 'You should receive an email from us.',
+      });
     })
-    .catch((error) =>
+    .catch((error) => {
+      console.log(error);
       res.status(500).send({
         message: error.message,
-      })
-    );
+      });
+    });
 };
 
 module.exports = {

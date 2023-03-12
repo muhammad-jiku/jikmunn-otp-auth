@@ -10,6 +10,6 @@ const userRouter = express.Router({
 userRouter.route('/:username').get(getUser); // user with username
 
 /** PUT Methods */
-userRouter.route('/updateuser').put(verifyAuth, updateUser); // is use to update the user profile
+userRouter.route('/update').put(verifyAuth, updateUser); // is use to update the user profile
 
 module.exports = userRouter;

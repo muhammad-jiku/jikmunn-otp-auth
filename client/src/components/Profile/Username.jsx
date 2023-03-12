@@ -13,15 +13,15 @@ const Username = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: 'example123',
+      username: '',
     },
     validate: usernameValidate,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
       console.log(values);
-      //  setUsername(values.username);
-      //  navigate('/password');
+      setUsername(values.username);
+      navigate('/password');
     },
   });
 

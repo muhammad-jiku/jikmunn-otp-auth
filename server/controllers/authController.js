@@ -51,7 +51,9 @@ const register = async (req, res) => {
         accessToken: token,
       });
     } else {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({
+        message: 'User already exists',
+      });
     }
   } catch (err) {
     // console.log(err);
@@ -82,7 +84,7 @@ const login = async (req, res) => {
         password,
         oldUser.password
       );
-
+      console.log(password, oldUser?.password);
       if (!isPasswordCorrect)
         return res.status(400).json({
           message: 'Something went wrong',
@@ -105,7 +107,7 @@ const login = async (req, res) => {
       });
     }
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     res.status(500).json({
       message: 'There is a server side error',
       // error: err
@@ -115,59 +117,82 @@ const login = async (req, res) => {
 
 /** GET: /api/auth/generateOTP */
 const generateOTP = async (req, res) => {
-  req.app.locals.OTP = await otpGenerator.generate(6, {
-    lowerCaseAlphabets: false,
-    upperCaseAlphabets: false,
-    specialChars: false,
-  });
-  res.status(201).send({
-    code: req.app.locals.OTP,
-  });
+  try {
+    req.app.locals.OTP = await otpGenerator.generate(6, {
+      lowerCaseAlphabets: false,
+      upperCaseAlphabets: false,
+      specialChars: false,
+    });
+    res.status(201).send({
+      code: req.app.locals.OTP,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Failed to generate OTP',
+    });
+  }
 };
 
 /** GET: /api/auth/verifyOTP */
 const verifyOTP = async (req, res) => {
-  const { code } = req.query;
-  if (parseInt(req.app.locals.OTP) === parseInt(code)) {
-    req.app.locals.OTP = null; // reset the OTP value
-    req.app.locals.resetSession = true; // start session for reset password
-    return res.status(201).send({
-      message: 'Verify Successsfully!',
+  try {
+    const { code } = req.query;
+    if (parseInt(req.app.locals.OTP) === parseInt(code)) {
+      req.app.locals.OTP = null; // reset the OTP value
+      req.app.locals.resetSession = true; // start session for reset password
+      return res.status(201).send({
+        message: 'Verify Successsfully!',
+      });
+    }
+    return res.status(400).send({
+      message: 'Invalid OTP',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Failed to verify OTP!',
     });
   }
-  return res.status(400).send({
-    message: 'Invalid OTP',
-  });
 };
 
 // successfully redirect user when OTP is valid
 /** GET: /api/auth/createResetSession */
 const createResetSession = async (req, res) => {
-  if (req.app.locals.resetSession) {
-    req.app.locals.resetSession = false; // allow access to this route only once
-    // return res.status(201).send({
-    //   message: 'access granted!',
-    // });
-    return res.status(201).send({
-      flag: req.app.locals.resetSession,
+  try {
+    req.app.locals.resetSession = true;
+    // console.log(req.app.locals.resetSession);
+    if (req.app.locals.resetSession) {
+      req.app.locals.resetSession = false; // allow access to this route only once
+      // console.log(req.app.locals.resetSession);
+      return res.status(201).send({
+        flag: req.app.locals.resetSession,
+        message: 'access granted!',
+      });
+    }
+    return res.status(440).send({
+      message: 'Session expired!',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: 'Failed to create session',
     });
   }
-  return res.status(440).send({
-    message: 'Session expired!',
-  });
 };
 
 // update the password when we have valid session
 /** PUT: /api/auth/resetPassword */
 const resetPassword = async (req, res) => {
   try {
+    req.app.locals.resetSession = true;
     if (!req.app.locals.resetSession)
       return res.status(440).send({
         message: 'Session expired!',
       });
 
     const { username, password } = await req.body;
-
+    console.log(req.body);
     try {
       const oldUser = await User.findOne({
         username: username,
@@ -181,11 +206,13 @@ const resetPassword = async (req, res) => {
         const updatedUser = {
           username,
           password: hashedPassword,
-          profile: oldUser?.profile || '',
-          email: oldUser?.email,
+          // profile: oldUser?.profile || '',
+          // email: oldUser?.email,
+          // ...oldUser,
         };
         const opts = {
           runValidators: true,
+          new: true,
         };
 
         const saveUpdatedUser = await User.findOneAndUpdate(
@@ -196,10 +223,9 @@ const resetPassword = async (req, res) => {
             $set: updatedUser,
           },
           {
-            new: true,
             opts,
           }
-        );
+        ).exec();
 
         req.app.locals.resetSession = false; // reset session
 
