@@ -37,7 +37,7 @@ const useFetch = (query) => {
 
         setData((prev) => ({ ...prev, isLoading: false }));
       } catch (error) {
-        // console.log('fetch error', error);
+        console.log('fetch error', error);
         setData((prev) => ({ ...prev, isLoading: false, serverError: error }));
       }
     };
