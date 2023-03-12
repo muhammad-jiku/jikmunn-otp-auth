@@ -11,7 +11,7 @@
       "src": "/(.*)",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       "headers": {
-        "Access-Control-Allow-Origin": "https://jikmunn-otp-auth-9bh2.vercel.app",
+        "Access-Control-Allow-Origin": "https://jikmunn-otp-auth-9bh2.vercel.app/",
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
       },
