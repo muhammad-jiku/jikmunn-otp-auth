@@ -3,7 +3,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
-console.log(process.env.REACT_APP_SERVER_DOMAIN);
+// console.log(process.env.REACT_APP_SERVER_DOMAIN);
 /** Make API Requests */
 /** To get username from Token */
 export const getUsername = async () => {
@@ -68,7 +68,7 @@ export const registerUser = async (credentials) => {
 
     return Promise.resolve(message);
   } catch (error) {
-    console.log('failed to register account', error);
+    // console.log('failed to register account', error);
     return Promise.reject({
       error,
     });
