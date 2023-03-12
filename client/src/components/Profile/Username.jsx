@@ -19,7 +19,7 @@ const Username = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log('username values', values);
       setUsername(values.username);
       navigate('/password');
     },
@@ -27,7 +27,7 @@ const Username = () => {
 
   return (
     <div className="container mx-auto">
-      <Toaster position="top-center" reverseOrder={false}></Toaster>
+      <Toaster position="top-center" reverseOrder={false} />
 
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass}>

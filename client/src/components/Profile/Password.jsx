@@ -22,7 +22,7 @@ const Password = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log('sign in values',values);
       let loginPromise = verifyPassword({
         username,
         password: values.password,
@@ -48,12 +48,11 @@ const Password = () => {
 
   return (
     <div className="container mx-auto">
-      <Toaster position="top-center" reverseOrder={false}></Toaster>
-      {console.log(apiData)}
+      <Toaster position="top-center" reverseOrder={false} />
+      {/* {console.log(apiData)} */}
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass}>
           <div className="title flex flex-col items-center">
-            {/* <h4 className="text-5xl font-bold">Hello </h4> */}
             <h4 className="text-5xl font-bold">
               Hello{' '}
               {apiData?.data[0]?.firstName ||
@@ -67,7 +66,6 @@ const Password = () => {
 
           <form className="py-1" onSubmit={formik.handleSubmit}>
             <div className="profile flex justify-center py-4">
-              {/* <img src={avatar} className={styles.profile_img} alt="avatar" /> */}
               <img
                 src={apiData?.data[0]?.profile || avatar}
                 className={styles.profile_img}

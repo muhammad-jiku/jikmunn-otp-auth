@@ -12,7 +12,7 @@ const Recovery = () => {
 
   useEffect(() => {
     generateOTP(username).then((OTP) => {
-      console.log(OTP);
+      // console.log(OTP);
       if (OTP) return toast.success('OTP has been send to your email!');
       return toast.error('Problem while generating OTP!');
     });
@@ -30,7 +30,7 @@ const Recovery = () => {
         return navigate('/reset');
       }
     } catch (error) {
-      console.log('otp wrong', error);
+      // console.log('otp error', error);
       return toast.error('Wrong OTP! Check email again!');
     }
   }
@@ -52,7 +52,7 @@ const Recovery = () => {
 
   return (
     <div className="container mx-auto">
-      <Toaster position="top-center" reverseOrder={false}></Toaster>
+      <Toaster position="top-center" reverseOrder={false} />
       {console.log(username)}
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass}>

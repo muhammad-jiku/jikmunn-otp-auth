@@ -23,7 +23,7 @@ const Register = () => {
     validateOnChange: false,
     onSubmit: async (values) => {
       values = await Object.assign(values, { profile: file || '' });
-      console.log(values);
+      // console.log('register values',values);
       let registerPromise = registerUser(values);
       toast.promise(registerPromise, {
         loading: 'Creating...',
@@ -45,7 +45,7 @@ const Register = () => {
 
   return (
     <div className="container mx-auto">
-      <Toaster position="top-center" reverseOrder={false}></Toaster>
+      <Toaster position="top-center" reverseOrder={false} />
 
       <div className="flex justify-center items-center h-screen">
         <div

@@ -24,7 +24,7 @@ const Reset = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log('reset values', values);
       let resetPromise = resetPassword({
         username,
         password: values.password,
@@ -50,7 +50,7 @@ const Reset = () => {
 
   return (
     <div className="container mx-auto">
-      <Toaster position="top-center" reverseOrder={false}></Toaster>
+      <Toaster position="top-center" reverseOrder={false} />
 
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass} style={{ width: '50%' }}>

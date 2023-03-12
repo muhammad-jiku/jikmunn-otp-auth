@@ -13,13 +13,14 @@ export const usernameValidate = async (values) => {
       errors.exist = toast.error('User does not exist...!');
     }
   }
+  // console.log('username valiidation error', errors);
   return errors;
 };
 
 /** validate password */
 export const passwordValidate = async (values) => {
   const errors = passwordVerify({}, values);
-
+  // console.log('password validation error', errors);
   return errors;
 };
 
@@ -30,7 +31,7 @@ export const resetPasswordValidation = async (values) => {
   if (values.password !== values.confirm_pwd) {
     errors.exist = toast.error('Password not match...!');
   }
-
+  // console.log('reset password validation erros', errors);
   return errors;
 };
 
@@ -39,14 +40,14 @@ export const registerValidation = async (values) => {
   const errors = usernameVerify({}, values);
   passwordVerify(errors, values);
   emailVerify(errors, values);
-
+  // console.log('register validation errors', errors);
   return errors;
 };
 
 /** validate profile page */
 export const profileValidation = async (values) => {
   const errors = emailVerify({}, values);
-  console.log(errors);
+  // console.log('profile validation errors', errors);
   return errors;
 };
 
@@ -67,7 +68,7 @@ const passwordVerify = (errors = {}, values) => {
   } else if (!specialChars.test(values.password)) {
     errors.password = toast.error('Password must have special character');
   }
-  console.log(errors);
+  // console.log('password values verify errors',errors);
   return errors;
 };
 
@@ -78,7 +79,7 @@ const usernameVerify = (error = {}, values) => {
   } else if (values.username.includes(' ')) {
     error.username = toast.error('Invalid Username...!');
   }
-  console.log(error);
+  // console.log('username values verify errors',error);
   return error;
 };
 
@@ -91,6 +92,6 @@ const emailVerify = (error = {}, values) => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     error.email = toast.error('Invalid email address...!');
   }
-  console.log(error);
+  // console.log('username values verify errors',error);
   return error;
 };

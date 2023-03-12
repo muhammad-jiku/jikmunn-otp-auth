@@ -7,10 +7,17 @@ axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 /** To get username from Token */
 export const getUsername = async () => {
-  const token = localStorage.getItem('accessToken');
-  if (!token) return Promise.reject('Cannot find Token');
-  let decode = jwt_decode(token);
-  return decode;
+  try {
+    const token = localStorage.getItem('accessToken');
+    if (!token) return Promise.reject('Cannot find Token');
+    let decode = jwt_decode(token);
+    return decode;
+  } catch (error) {
+    // console.log('failed to get username', error);
+    return {
+      message: 'Something went wrong!',
+    };
+  }
 };
 
 /** authenticate function */
@@ -20,8 +27,10 @@ export const authenticate = async (username) => {
       username,
     });
   } catch (error) {
-    console.log(error);
-    // return { message: "Username doesn't exist...!" };
+    // console.log('failed to authenticate',error);
+    return {
+      message: "Username doesn't exist...!",
+    };
   }
 };
 
@@ -31,8 +40,10 @@ export const getUser = async ({ username }) => {
     const { data } = await axios.get(`/api/user/${username}`);
     return { data };
   } catch (error) {
-    console.log(error);
-    return { message: "Password doesn't Match...!" };
+    // console.log('failed to get user', error);
+    return {
+      message: "Password doesn't Match...!",
+    };
   }
 };
 
@@ -57,27 +68,32 @@ export const registerUser = async (credentials) => {
 
     return Promise.resolve(message);
   } catch (error) {
-    return Promise.reject({ error });
+    // console.log('failed to register account', error);
+    return Promise.reject({
+      error,
+    });
   }
 };
 
 /** login function */
 export const verifyPassword = async ({ username, password }) => {
   try {
-    console.log({ username, password });
+    // console.log({ username, password });
     if (username) {
       const { data } = await axios.post('/api/auth/login', {
         username,
         password,
       });
-      console.log(data);
+      // console.log(data);
       return Promise.resolve({
         data,
-        // data: data?.data[0],
       });
     }
   } catch (error) {
-    return Promise.reject({ message: "Password doesn't Match...!" });
+    // console.log('failed to verify password', error);
+    return Promise.reject({
+      message: "Password doesn't Match...!",
+    });
   }
 };
 
@@ -91,25 +107,18 @@ export const updateUser = async (response) => {
   try {
     const token = await localStorage.getItem('accessToken');
     // console.log(token);
-    const data = await axios.put(
-      '/api/user/update',
-      updatedUserInfo,
-      // JSON.stringify(updatedUserInfo),
-      // {
-      //   body: JSON.stringify(updatedUserInfo),
-      // },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    console.log('updated data', data);
+    const data = await axios.put('/api/user/update', updatedUserInfo, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    // console.log('updated data', data);
     return Promise.resolve({
       data,
-      // data: data?.data[0],
     });
   } catch (error) {
-    console.log('updatee error...', error.message);
-    return Promise.reject({ message: "Couldn't Update Profile...!" });
+    // console.log('updatee error...', error );
+    return Promise.reject({
+      message: "Couldn't Update Profile...!",
+    });
   }
 };
 
@@ -139,38 +148,46 @@ export async function generateOTP(username) {
     }
     return Promise.resolve(code);
   } catch (error) {
-    console.log(error);
-    return Promise.reject({ error });
+    // console.log('failed to generate otp',error);
+    return Promise.reject({
+      error,
+    });
   }
 }
 
 /** verify OTP */
-export async function verifyOTP({ username, code }) {
+export const verifyOTP = async ({ username, code }) => {
   try {
     const { data, status } = await axios.get('/api/auth/verifyOTP', {
       params: { username, code },
     });
-    console.log(data, status);
+    // console.log(data, status);
     return {
       data,
       status,
     };
   } catch (error) {
-    console.log(error);
+    // console.log('failed to verify otp',error);
     return Promise.reject(error);
   }
-}
+};
 
 /** reset password */
-export async function resetPassword({ username, password }) {
+export const resetPassword = async ({ username, password }) => {
   try {
     const { data, status } = await axios.put('/api/auth/resetPassword', {
       username,
       password,
     });
-    console.log(data, status);
-    return Promise.resolve({ data, status });
+    // console.log(data, status);
+    return Promise.resolve({
+      data,
+      status,
+    });
   } catch (error) {
-    return Promise.reject({ error });
+    // console.log('failed to reset password', error);
+    return Promise.reject({
+      error,
+    });
   }
-}
+};

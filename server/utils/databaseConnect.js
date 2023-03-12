@@ -14,7 +14,10 @@ const databaseConnect = async () => {
       console.log('DB connected!!');
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
+      res.status(500).json({
+        message: 'Something went wrong!',
+      });
     });
 };
 

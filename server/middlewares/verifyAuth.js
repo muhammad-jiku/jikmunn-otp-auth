@@ -16,7 +16,7 @@ const verifyAuth = async (req, res, next) => {
     console.log(req.user);
     next();
   } catch (error) {
-    console.log('auth error', error);
+    // console.log('auth error', error);
     res.status(401).json({
       message: 'Authentication Failed!',
     });

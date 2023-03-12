@@ -3,18 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const otpGenerator = require('otp-generator');
 
-/** POST: /api/auth/register 
- * @param : {
-  "username" : "example123",
-  "password" : "admin123",
-  "email": "example@gmail.com",
-  "firstName" : "bill",
-  "lastName": "william",
-  "mobile": 8009860560,
-  "address" : "Apt. 556, Kulas Light, Gwenborough",
-  "profile": ""
-}
-*/
+/** POST: /api/auth/register */
 const register = async (req, res) => {
   try {
     const { username, password, profile, email } = await req.body;
@@ -55,21 +44,16 @@ const register = async (req, res) => {
         message: 'User already exists',
       });
     }
-  } catch (err) {
-    // console.log(err);
+  } catch (error) {
+    // console.log('creating account error',error);
     res.status(500).json({
-      message: 'There is a server side error',
-      // error: err
+      message: 'Something went wrong!',
+      // error:
     });
   }
 };
 
-/** POST: /api/auth/login 
- * @param: {
-  "username" : "example123",
-  "password" : "admin123"
-}
-*/
+/** POST: /api/auth/login*/
 const login = async (req, res) => {
   try {
     const { username, password } = await req.body;
@@ -106,11 +90,10 @@ const login = async (req, res) => {
         accessToken: token,
       });
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    // console.log('login error', error);
     res.status(500).json({
-      message: 'There is a server side error',
-      // error: err
+      message: 'Something went wrong!',
     });
   }
 };
@@ -127,9 +110,9 @@ const generateOTP = async (req, res) => {
       code: req.app.locals.OTP,
     });
   } catch (error) {
-    console.log(error);
+    // console.log('generating otp error',error);
     res.status(500).json({
-      message: 'Failed to generate OTP',
+      message: 'Something went wrong!',
     });
   }
 };
@@ -146,12 +129,12 @@ const verifyOTP = async (req, res) => {
       });
     }
     return res.status(400).send({
-      message: 'Invalid OTP',
+      message: 'Something went wrong!!',
     });
   } catch (error) {
-    console.log(error);
+    // console.log('verify otp error', error);
     res.status(500).json({
-      message: 'Failed to verify OTP!',
+      message: 'Something went wrong!',
     });
   }
 };
@@ -171,12 +154,12 @@ const createResetSession = async (req, res) => {
       });
     }
     return res.status(440).send({
-      message: 'Session expired!',
+      message: 'Something went wrong!!',
     });
   } catch (error) {
-    console.log(error);
+    // console.log('creating session error', error);
     res.status(500).json({
-      message: 'Failed to create session',
+      message: 'Something went wrong!',
     });
   }
 };
@@ -188,7 +171,7 @@ const resetPassword = async (req, res) => {
     req.app.locals.resetSession = true;
     if (!req.app.locals.resetSession)
       return res.status(440).send({
-        message: 'Session expired!',
+        message: 'Something went wrong!!',
       });
 
     const { username, password } = await req.body;
@@ -199,16 +182,15 @@ const resetPassword = async (req, res) => {
       });
 
       if (!oldUser) {
-        return res.status(404).json({ message: 'User does not exist' });
+        return res.status(404).json({
+          message: 'Something went wrong!',
+        });
       } else {
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const updatedUser = {
           username,
           password: hashedPassword,
-          // profile: oldUser?.profile || '',
-          // email: oldUser?.email,
-          // ...oldUser,
         };
         const opts = {
           runValidators: true,
@@ -235,13 +217,15 @@ const resetPassword = async (req, res) => {
         });
       }
     } catch (error) {
+      // console.log('user error',error);
       return res.status(500).send({
-        message: error.message,
+        message: 'Something went wrong!',
       });
     }
   } catch (error) {
+    // console.log('reseting password error',error);
     return res.status(401).send({
-      message: error.message,
+      message: 'Something went wrong!',
     });
   }
 };

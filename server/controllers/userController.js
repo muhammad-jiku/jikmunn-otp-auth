@@ -1,5 +1,4 @@
 const User = require('../model/User');
-const mongoose = require('mongoose');
 
 /** GET: /api/user/example123 */
 const getUser = async (req, res) => {
@@ -16,25 +15,16 @@ const getUser = async (req, res) => {
       message: 'SUCCESS!!',
       data,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    // console.log('getting user error', error);
     res.status(500).json({
-      message: 'There is a server side error!',
+      message: 'Something went wrong!',
       // error: err
     });
   }
 };
 
-/** PUT: /api/user/update 
- * @param: {
-  "header" : "<token>"
-}
-body: {
-    firstName: '',
-    address : '',
-    profile : ''
-}
-*/
+/** PUT: /api/user/update*/
 const updateUser = async (req, res) => {
   const { username } = req.user;
   const updatedUserInfo = req.body;
@@ -44,7 +34,7 @@ const updateUser = async (req, res) => {
   };
 
   try {
-    const resultData = User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { username },
       {
         $set: updatedUserInfo,
@@ -54,17 +44,15 @@ const updateUser = async (req, res) => {
       }
     ).exec();
 
-    // console.log(resultData);
     return res.status(200).json({
       message: 'SUCCESS!!',
       // data
       data: updatedUserInfo,
-      // data: JSON.stringify(userData),
     });
   } catch (error) {
-    console.log(error);
+    // console.log('updating user info error', error);
     res.status(500).json({
-      message: 'There is a server side error!',
+      message: 'Something went wrong!',
     });
   }
 };

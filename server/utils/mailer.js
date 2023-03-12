@@ -22,14 +22,7 @@ let MailGenerator = new Mailgen({
   },
 });
 
-/** POST: http://localhost:8080/api/registerMail 
- * @param: {
-  "username" : "example123",
-  "userEmail" : "admin123",
-  "text" : "",
-  "subject" : "",
-}
-*/
+/** POST: http://localhost:8080/api/registerMail*/
 const registerMail = async (req, res) => {
   const { username, userEmail, text, subject } = await req.body;
   // console.log(req.body);
@@ -59,14 +52,14 @@ const registerMail = async (req, res) => {
   transporter
     .sendMail(message)
     .then(() => {
-      return res.status(200).send({
+      return res.status(200).json({
         message: 'You should receive an email from us.',
       });
     })
     .catch((error) => {
-      console.log(error);
-      res.status(500).send({
-        message: error.message,
+      // console.log('nodemailer error', error);
+      res.status(500).json({
+        message: 'Something went wrong!',
       });
     });
 };

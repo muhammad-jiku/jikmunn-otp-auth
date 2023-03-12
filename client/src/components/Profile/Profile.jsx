@@ -32,7 +32,7 @@ const Profile = () => {
       values = await Object.assign(values, {
         profile: file || apiData?.profile || '',
       });
-      console.log(values);
+      // console.log('profile values', values);
       let updatePromise = updateUser(values);
       toast.promise(updatePromise, {
         loading: 'Updating...',
@@ -61,7 +61,7 @@ const Profile = () => {
   return (
     <div className="container mx-auto">
       {/* {console.log(apiData?.data[0])} */}
-      <Toaster position="top-center" reverseOrder={false}></Toaster>
+      <Toaster position="top-center" reverseOrder={false} />
 
       <div className="flex justify-center items-center h-screen">
         <div
@@ -78,11 +78,6 @@ const Profile = () => {
           <form className="py-1" onSubmit={formik.handleSubmit}>
             <div className="profile flex justify-center py-4">
               <label htmlFor="profile">
-                {/* <img
-                  src={file || avatar}
-                  className={`${styles.profile_img} ${extend.profile_img}`}
-                  alt="avatar"
-                /> */}
                 <img
                   src={apiData?.data[0]?.profile || file || avatar}
                   className={`${styles.profile_img} ${extend.profile_img}`}
@@ -141,14 +136,8 @@ const Profile = () => {
             </div>
 
             <div className="text-center py-4">
-              {/* <span className="text-gray-500">
-                come back later?{' '}
-                <button className="text-red-500" to="/">
-                  Logout
-                </button>
-              </span> */}
               <span className="text-gray-500">
-                come back later?{' '}
+                come back later!{' '}
                 <button onClick={userLogout} className="text-red-500" to="/">
                   Logout
                 </button>

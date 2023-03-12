@@ -29,7 +29,6 @@ const useFetch = (query) => {
           setData((prev) => ({
             ...prev,
             apiData: data,
-            // apiData: data?.data[0],
             status: status,
           }));
         }
