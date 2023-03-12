@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+//  external imports
 import { useFormik } from 'formik';
-import { profileValidation } from '../../helpers/validate';
-import { convertToBase64 } from '../../helpers/convert';
+import { useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
-import styles from '../../styles/username.module.css';
-import extend from '../../styles/profile.module.css';
+//  internal imports
 import avatar from '../../assets/profile.png';
 import useFetch from '../../hook/fetchHook';
-import { useNavigate } from 'react-router-dom';
 import { updateUser } from '../../helpers/helper';
+import extend from '../../styles/profile.module.css';
+import styles from '../../styles/username.module.css';
+import { profileValidation } from '../../helpers/validate';
+import { convertToBase64 } from '../../helpers/convert';
 
 const Profile = () => {
   const [file, setFile] = useState();

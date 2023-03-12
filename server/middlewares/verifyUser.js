@@ -1,3 +1,4 @@
+//  internal import
 const User = require('../model/User');
 
 /** middleware for verify user */

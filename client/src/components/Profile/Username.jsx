@@ -1,11 +1,13 @@
 import React from 'react';
+//  external imports
 import { useFormik } from 'formik';
 import { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../styles/username.module.css';
-import { usernameValidate } from '../../helpers/validate';
+//  internal imports
 import avatar from '../../assets/profile.png';
 import { useAuthStore } from '../../store/store';
+import styles from '../../styles/username.module.css';
+import { usernameValidate } from '../../helpers/validate';
 
 const Username = () => {
   const navigate = useNavigate();

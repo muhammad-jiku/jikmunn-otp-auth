@@ -1,5 +1,8 @@
 /* eslint-disable no-useless-escape */
+
+//  external import
 import toast from 'react-hot-toast';
+//  internal import
 import { authenticate } from './helper';
 
 /** validate login page username */

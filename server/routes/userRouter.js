@@ -1,3 +1,4 @@
+//  internal imports
 const { getUser, updateUser } = require('../controllers/userController');
 
 const express = require('express');

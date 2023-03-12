@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+//  external imports
 import { useFormik } from 'formik';
-import { convertToBase64 } from '../../helpers/convert';
 import { toast, Toaster } from 'react-hot-toast';
-import { registerValidation } from '../../helpers/validate';
-import styles from '../../styles/username.module.css';
-import avatar from '../../assets/profile.png';
 import { Link, useNavigate } from 'react-router-dom';
+//  internal imports
+import avatar from '../../assets/profile.png';
 import { registerUser } from '../../helpers/helper';
+import styles from '../../styles/username.module.css';
+import { convertToBase64 } from '../../helpers/convert';
+import { registerValidation } from '../../helpers/validate';
 
 const Register = () => {
   const navigate = useNavigate();

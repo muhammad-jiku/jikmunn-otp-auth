@@ -1,5 +1,6 @@
-const nodemailer = require('nodemailer');
+//  external imports
 const Mailgen = require('mailgen');
+const nodemailer = require('nodemailer');
 
 // https://ethereal.email/create
 let nodeConfig = {

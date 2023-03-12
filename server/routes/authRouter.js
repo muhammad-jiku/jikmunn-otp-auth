@@ -1,10 +1,11 @@
+//  internal imports
 const {
-  createResetSession,
-  generateOTP,
   login,
   register,
-  resetPassword,
   verifyOTP,
+  generateOTP,
+  resetPassword,
+  createResetSession,
 } = require('../controllers/authController');
 
 const express = require('express');

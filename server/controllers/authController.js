@@ -1,7 +1,9 @@
-const User = require('../model/User');
+//  external imports
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const otpGenerator = require('otp-generator');
+//  internal import
+const User = require('../model/User');
 
 /** POST: /api/auth/register */
 const register = async (req, res) => {

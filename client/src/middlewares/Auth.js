@@ -1,5 +1,7 @@
-import { useAuthStore } from '../store/store';
+//  external import
 import { Navigate } from 'react-router-dom';
+//  internal import
+import { useAuthStore } from '../store/store';
 
 export const AuthorizeUser = ({ children }) => {
   const token = localStorage.getItem('accessToken');

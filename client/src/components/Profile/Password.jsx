@@ -1,13 +1,15 @@
-import { useFormik } from 'formik';
 import React from 'react';
+//  external imports
+import { useFormik } from 'formik';
 import { toast, Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
-import { passwordValidate } from '../../helpers/validate';
-import styles from '../../styles/username.module.css';
+//  internal imports
 import avatar from '../../assets/profile.png';
-import { useAuthStore } from '../../store/store';
 import useFetch from '../../hook/fetchHook';
+import { useAuthStore } from '../../store/store';
 import { verifyPassword } from '../../helpers/helper';
+import styles from '../../styles/username.module.css';
+import { passwordValidate } from '../../helpers/validate';
 
 const Password = () => {
   const navigate = useNavigate();

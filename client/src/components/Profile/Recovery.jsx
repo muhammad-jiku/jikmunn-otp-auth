@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+//  external imports
 import { toast, Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { generateOTP, verifyOTP } from '../../helpers/helper';
+//  internal imports
 import { useAuthStore } from '../../store/store';
 import styles from '../../styles/username.module.css';
+import { generateOTP, verifyOTP } from '../../helpers/helper';
 
 const Recovery = () => {
   const { username } = useAuthStore((state) => state.auth);

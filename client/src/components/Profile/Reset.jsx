@@ -1,12 +1,14 @@
 import React from 'react';
+//  external imports
 import { useFormik } from 'formik';
 import { toast, Toaster } from 'react-hot-toast';
+import { Navigate, useNavigate } from 'react-router-dom';
+//  internal imports
+import useFetch from '../../hook/fetchHook';
+import { useAuthStore } from '../../store/store';
+import { resetPassword } from '../../helpers/helper';
 import styles from '../../styles/username.module.css';
 import { resetPasswordValidation } from '../../helpers/validate';
-import { useAuthStore } from '../../store/store';
-import useFetch from '../../hook/fetchHook';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { resetPassword } from '../../helpers/helper';
 
 const Reset = () => {
   const { username } = useAuthStore((state) => state.auth);

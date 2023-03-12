@@ -1,10 +1,12 @@
 import React from 'react';
+//  external imports
 import { Route, Routes } from 'react-router-dom';
-import Register from './components/Auth/Register';
-import Password from './components/Profile/Password';
-import Profile from './components/Profile/Profile';
-import Recovery from './components/Profile/Recovery';
+//  internal imports
 import Reset from './components/Profile/Reset';
+import Profile from './components/Profile/Profile';
+import Register from './components/Auth/Register';
+import Recovery from './components/Profile/Recovery';
+import Password from './components/Profile/Password';
 import Username from './components/Profile/Username';
 import NotFound from './components/Shared/NotFound';
 import { AuthorizeUser, ProtectRoute } from './middlewares/Auth';
